@@ -14,8 +14,10 @@ class MainApplication:
             raise ValueError("Browser not supported!")
         
         driver = factory.create_driver()
-        BrowserHandler.open_and_maximize(driver, "https://www.google.com/")
-        BrowserHandler.quit_browser(driver)
+        
+        handler = BrowserHandler()
+        handler.open_and_maximize(driver, "https://www.google.com/")
+        handler.quit_browser(driver)
 
 if __name__ == "__main__":
     app = MainApplication()
