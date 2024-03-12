@@ -1,12 +1,12 @@
 import time
 
 class BrowserHandler:
-    @staticmethod
-    def open_and_maximize(driver, url):
+    def open_and_maximize(self, driver, url):
         driver.get(url)
         driver.maximize_window()
+        driver.refresh()
     
-    @staticmethod 
-    def quit_browser(driver):
+    def quit_browser(self,driver):
         time.sleep(5)
+        driver.close()
         driver.quit()
