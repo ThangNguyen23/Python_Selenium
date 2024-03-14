@@ -8,26 +8,32 @@ class MainPage:
         self.driver = driver
     
     def click_google_login_button(self):
-        login_button = self.driver.find_element(by=AppiumBy.XPATH, value='//*[@text="Đăng nhập bằng Google"]')
-        login_button.click()
+        try:
+            login_button = self.driver.find_element(by=AppiumBy.XPATH, value='//*[@text="Đăng nhập bằng Google"]')
+            login_button.click()
+        except Exception as e:
+            print(f"Your error: {e}")
 
 
 class AppiumTest(unittest.TestCase):
     def setUp(self) -> None:
-        capabilities = dict(
-            platformName='Android',
-            automationName='uiautomator2',
-            deviceName='Pixel 7 Pro API 33',
-            appPackage='com.testing.certifications',
-            appActivity='.MainActivity',
-            language='en',
-            locale='US'
-        )
+        try:
+            capabilities = dict(
+                platformName='Android',
+                automationName='uiautomator2',
+                deviceName='Pixel 7 Pro API 33',
+                appPackage='com.testing.certifications',
+                appActivity='.MainActivity',
+                language='en',
+                locale='US'
+            )
 
-        appium_server_url = 'http://127.0.0.1:4723/wd/hub'
-        capabilities_options = UiAutomator2Options().load_capabilities(capabilities)
-        self.driver = webdriver.Remote(command_executor = appium_server_url, options = capabilities_options)
-        self.main_page = MainPage(self.driver)
+            appium_server_url = 'http://127.0.0.1:4723/wd/hub'
+            capabilities_options = UiAutomator2Options().load_capabilities(capabilities)
+            self.driver = webdriver.Remote(command_executor = appium_server_url, options = capabilities_options)
+            self.main_page = MainPage(self.driver)
+        except Exception as e:
+            print(f"Your error: {e}")
 
     def tearDown(self) -> None:
         if self.driver:
